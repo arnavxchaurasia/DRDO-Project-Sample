@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>DRDO SSPL Project Portal</title>
+  <link rel="stylesheet" href="ViewProjectForm.css">
+</head>
+<body>
+  <div class="page-wrapper">
+  <header class="header">
+    <img src="/logo/drdo_logo.png" alt="DRDO Logo"/>
+    <h1>SSPL Research Project Dashboard</h1>
+  </header>
+
+  <div class="main-content">
+    <!-- PP / SP / CP toggle -->
+    <div class="new-sidebar">
+      <button class="active" data-pane="pp">Preliminary Information</button>
+      <button data-pane="sp">Project Sanction</button>
+      <button data-pane="mr">Monitoring Review</button>
+      <button data-pane="cp">Project Closure</button>
+    </div>
+
+    <!-- PP: Pre-Project wizard -->
+    <div class="container pp-container active" id="pp">
+      <div class="pp-sidebar">
+        <ul id="sidebarList" class="steps">
+          <li class="step active">Title</li>
+          <li class="step">Draft Project Proposal</li>
+          <li class="step">Executive Summary</li>
+          <li class="step">Objective</li>
+          <li class="step">Scope</li>
+          <li class="step">Participating Labs</li>
+          <li class="step">Users</li>
+          <li class="step">Cost Estimation</li>
+          <li class="step">Duration Estimation</li>
+          <li class="step">Management Council</li>
+          <li class="step">Cluster Council Meeting</li>
+          <li class="step">Project Review Committee</li>
+          <li class="step">Preliminary Design Review</li>
+          <li class="step">Time Estimation Committee</li>
+          <li class="step">Cost Estimation Committee</li>
+          <li class="step">DRDO Management Council</li>
+          <li class="step">Statement of Case</li>
+        </ul>
+        <div class="add-section">
+          <input id="newSectionName" placeholder="New Section"/>
+          <button id="addSectionBtn">Add</button>
+        </div>
+      </div>
+
+     <!-- Step 1: Title & Description --> 
+      <div class="form-container">
+        <form id="multiStepForm">
+          <div class="form-step active">
+            <h2>Name of the Project</h2>
+            <p>Name and Description of the project.</p>
+            <label>Title</label>
+            <input type="text" id="title" placeholder="Project name" readonly class="view-only-input" />
+            <label>Description</label>
+            <input type="text" id="description" placeholder="Project description" readonly class="view-only-input" />
+        </div>
+        
+        <!-- Step 2: Draft Project Proposal -->
+        <div class="form-step">
+          <h2>Draft Project Proposal</h2>
+          <p>Details of Draft Project Proposal.</p>
+          <label>Brief</label>
+          <input type="text" id="draftBrief" readonly class="view-only-input"/>
+          <label>Minutes Of Meeting</label>
+          <a id="minutesFile" href="#" target="_blank" class="file-link">View Attached File</a>
+          <label>Date</label>
+          <input type="text" id="date" readonly class="view-only-input"/>
+        </div>
+
+         <!-- Step 3: Executive Summary -->
+        <div class="form-step">
+            <h2>Executive Summary</h2>
+            <p>Executive Summary of the project.</p>
+            <label>Brief</label><input type="text" id="executiveSummary" readonly class="view-only-input" />
+            <label>Attached File</label>
+            <a id="executiveSumFile" href="#" target="_blank" class="file-link">View Attached File</a>
+          </div>
+
+        <!-- Step 4: Objective -->
+        <div class="form-step">
+          <h2>Objective</h2>
+            <p>Objective of the project.</p>
+            <label>Brief</label><input type="text" id="objectiveBrief" readonly class="view-only-input" />
+            <label>Attached File</label>
+            <a id="objectiveFile" href="#" target="_blank" class="file-link">View Attached File</a>
+          </div>
+
+        <!-- Step 4: Scope -->
+        <div class="form-step">
+          <h2>Scope</h2>
+            <p>Scope details of the project.</p>
+            <label>Brief</label><input type="text" id="scopeBrief" placeholder="Scope of project" readonly class="view-only-input" />
+            <label>Attached File</label>
+            <a id="scopeFile" href="#" target="_blank" class="file-link">View Attached File</a>
+          </div>
+
+        <!-- Step 5: Participating Labs -->
+        <div class="form-step">
+          <h2>Participating Labs</h2>
+            <p>Executing Laboratory Details</p>
+
+            <input type="text" id="participatingLabs" placeholder="Participating Lab Name" readonly class="view-only-input"></input>
+        </div>
+
+        <!-- Step 6: Users -->
+         <div class="form-step">
+          <h2>Users</h2>
+            <p>User details of the project.</p>
+            <label></label><input type="text" id="user" readonly class="view-only-input" />
+            <label>Attached File</label>
+            <a id="userFile" href="#" target="_blank" class="file-link">View Attached File</a>
+          </div>
+
+        <!-- Step 7: Cost Estimation -->
+         <div class="form-step">
+          <h2>Cost Estimation</h2>
+            <p>Cost Estimation details of the project.</p>
+             <p>Cost Estimation details.</p>
+              <label>Brief</label><input type="text" id="costBrief" readonly class="view-only-input" />
+              <label>Attached File</label>
+              <a id="costFile" href="#" target="_blank" class="file-link">View Attached File</a>
+              <label>Revenue</label>
+              <input type="text" id="revenue" placeholder="Revenue Details" readonly class="view-only-input" />
+              <label>Capital</label>
+              <input type="text" id="capital" placeholder="Capital Details" readonly class="view-only-input" />
+              <label>FE</label>
+              <input type="text" id="feDetails" placeholder="FE Details" readonly class="view-only-input" />
+              <label>IC</label>
+              <input type="text" id="icDetails" placeholder="IC Details" readonly class="view-only-input" />
+              <label>RE</label>
+              <input type="text" id="reDetails" placeholder="RE Details" readonly class="view-only-input" />    
+        </div>
+
+        <!-- Step 8: Duration Estimation -->
+        <div class="form-step">
+          <h2>Duration Estimation</h2>
+            <p>Duration Estimation details of the project.</p>
+            <label>Brief</label><input type="text" id="durationBrief" readonly class="view-only-input" />
+            <label>Attached File</label>
+            <a id="durationEstFile" href="#" target="_blank" class="file-link">View Attached File</a>
+          </div>
+        
+        <!-- Step 9: Management Council -->
+        <div class="form-step">
+          <h2>Management Council</h2>
+            <p>Management Council details of the project.</p>
+            <label>Brief</label><input type="text" id="managementCounBrief" readonly class="view-only-input" />
+            <label>Approval</label><input type="text" id="managementApproval" readonly class="view-only-input"/>
+            <label>Minutes Of Meeting</label>
+            <a id="managementMinutesFile" href="#" target="_blank" class="file-link">View Minutes of Meeting File</a>
+            <label>Attached File</label>
+            <a id="councilFile" href="#" target="_blank" class="file-link">View Attached File</a>
+        </div>
+
+        <!-- Step 10: Cluster Council Meeting -->
+        <div class="form-step">
+          <h2>Cluster Council Meeting</h2>
+          <p>Details of Cluster Council Meeting</p>
+          <label>Approval</label>
+          <input type="text" id="ccmApproval" readonly class="view-only-input"/>
+          <label>Minutes Of Meeting</label>
+          <a id="ccmMinutesFile" href="#" target="_blank" class="file-link">View Minutes of Meeting File</a>
+          <label>Date</label>
+          <input type="text" id="ccmDate" readonly class="view-only-input"/>
+        </div>
+
+        <!-- Step 11: Project Review Committee -->
+        <div class="form-step">
+          <h2>Project Review Committee</h2>
+          <p>Details of Project Review Committee</p>
+          <label>Approval</label>
+          <input type="text" id="prcApproval" readonly class="view-only-input"/>
+          <label>Minutes Of Meeting</label>
+          <a id="prcMinutesFile" href="#" target="_blank" class="file-link">View Minutes of Meeting File</a>
+          <label>Date</label>
+          <input type="text" id="prcDate" readonly class="view-only-input"/>
+        </div>
+
+        <!-- Step 12: PDR -->
+        <div class="form-step">
+          <h2>Preliminary Design Review</h2>
+            <p>Preliminary Design Review details of the project.</p>
+            <label>Brief</label>
+            <input type="text" id="pdrBrief" readonly class="view-only-input" />
+            <label>Minutes Of Meeting</label>
+            <a id="pdrMinutesFile" href="#" target="_blank" class="file-link">View Minutes of Meeting File</a>
+            <label>Attached File</label>
+            <a id="pdrFile" href="#" target="_blank" class="file-link">View Attached File</a>
+            <label>Date</label>
+            <input type="text" id="pdrDate" readonly class="view-only-input"/>
+        </div>
+        
+        <!-- Step 13: Time Estimation Committee -->
+        <div class="form-step">
+          <h2>Time Estimation Committee</h2>
+          <p>Details of Time Estimation Committee</p>
+          <label>Minutes Of Meeting</label>
+          <a id="tiecMinutesFile" href="#" target="_blank" class="file-link">View Minutes of Meeting File</a>
+          <label>Date</label>
+          <input type="text" id="tiecDate" readonly class="view-only-input"/>
+          <label>Brief</label>
+          <textarea id="tiecBrief" readonly></textarea>
+        </div>
+
+        <!-- Step 14: Cost Estimation Committee -->
+        <div class="form-step">
+          <h2>Cost Estimation Committee</h2>
+          <p>Details of Cost Estimation Committee</p>
+          <label>Minutes Of Meeting</label>
+          <a id="cecMinutesFile" href="#" target="_blank" class="file-link">View Minutes of Meeting File</a>
+          <label>Date</label>
+          <input type="text" id="cecDate" readonly/>
+          <label>Brief</label>
+          <textarea id="cecBrief" readonly></textarea>
+        </div>
+
+        <!-- Step 15: DRDO Management Committee-->
+        <div class="form-step">
+          <h2>DRDO Management Committee</h2>
+          <p>Details of DRDO Management Committee</p>
+          <label>Minutes Of Meeting</label>
+          <a id="dmcMinutesFile" href="#" target="_blank" class="file-link">View Minutes of Meeting File</a>
+          <label>Date</label>
+          <input type="text" id="dmcDate" readonly/>
+          <label>Brief</label>
+          <textarea id="dmcBrief" readonly></textarea>
+        </div>
+
+        <!-- Step 16: SOC -->
+        <div class="form-step">
+          <h2>Statement of Case</h2>
+          <p>Details of Statement of Case</p>
+          <label>Minutes Of Meeting</label>
+          <a id="sosMinutesFile" href="#" target="_blank" class="file-link">View Minutes of Meeting File</a>
+          <label>Date</label>
+          <input type="text" id="sosDate" readonly/>
+          <label>Brief</label>
+          <textarea id="sosBrief" readonly></textarea>
+        </div>
+          <button type="button" class="continue-btn">Next Step</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- SP: Sanction Project wizard -->
+    <div class="container sp-container" id="sp">
+      <!-- SP sidebar -->
+      <div class="sp-sidebar">
+        <ul id="spSidebar" class="steps">
+         <li class="sp-step active">Category</li>
+         <li class="sp-step">Deliverable</li>
+         <li class="sp-step">Participating Labs</li>
+         <li class="sp-step">Sanction Date</li>
+         <li class="sp-step">Probable Date of Completion</li>
+         <li class="sp-step">Sanction Letter</li>
+         <li class="sp-step">Corrigendum</li>
+         <li class="sp-step">Executive Board Meeting</li>
+        </ul>
+
+      </div>
+      <!-- SP form -->
+      <div class="form-container">
+        <form id="spForm">
+
+        <!-- Step 1: Category -->
+          <div class="form-step sp-step-content active">
+          <h2>Project Category</h2>
+          <p>Category of the project and its details.</p>
+          <label for="categoryDisplay">Category</label>
+           <input type="text" id="categoryDisplay" readonly class="view-only-input" />
+
+            <div id="tdDetailsContainer" style="margin-top: 10px;"></div>
+          </div>
+
+            <!-- Step 2: Deliverable -->
+            <div class="form-step sp-step-content">
+              <h2>Deliverable</h2>
+              <p>Deliverable details of the project.</p>
+              <input type="text" id="deliverableDetails" placeholder="Deliverable details" readonly class="view-only-input" />
+              
+              <label>Attached File</label>
+              <a id="deliverableFileLink" href="#" target="_blank" class="file-link">View Deliverable File</a>
+            </div>
+
+             <!-- Step 3: Participating Lab -->
+             <div class="form-step sp-step-content">
+                <h2>Participating Lab</h2>
+                <p>Name of the participating lab.</p>
+                <label>Lab</label>
+                <input type="text" id="participatingLabName" placeholder="Lab name" readonly class="view-only-input" />
+            </div>
+
+             <!-- Step 4: Sanction Date (View Only) -->
+              <div class="form-step sp-step-content">
+                   <h2>Sanction Date</h2>
+                   <p>Below are the details of the sanction date.</p>
+
+                    <label>Description</label>
+                    <input type="text" placeholder="Additional comments" readonly  />
+
+                    <label>Date</label>
+                   <input type="text" id="sanctionDate" readonly  />
+              </div>
+
+
+            <!-- Step 5: PDC -->
+            <div class="form-step sp-step-content">
+              <h2>Probable Date of Completion</h2>
+              <p>Details of PDC.</p>
+              <label></label><input type="text" id="pdcDetails" placeholder="provide the Original Revised details of PDC." readonly class="view-only-input" />
+              <label>Date</label><input type="text" id="pdcDate" readonly class="view-only-input" />
+            </div>
+
+            <!-- Step 6: Sanction Letter -->
+            <div class="form-step sp-step-content">
+              <h2>Sanction Letter</h2>
+              <p>Sanction letter details of the project.</p>
+              <label>Approval</label><input type="text" id="sanctionApproval" placeholder="Scope of project" readonly class="view-only-input" />
+      
+              <label>Attached File</label>
+              <a id="SanctionLetterFileLink" href="#" target="_blank" class="file-link">View Sanction Letter File</a>
+
+            </div>
+
+             <!-- Step 7: Corrigendum-->
+             <div class="form-step sp-step-content">
+                <h2>Corrigendum</h2>
+                <p>Details of the Corrigendum.</p>
+                <label>Description</label>
+                <input type="text" id="corrigendumDescription" placeholder="Additional comments" readonly class="view-only-input" />
+
+                <label>Attached File</label>
+                <a id="corrigendumFileName" href="#" target="_blank" class="file-link">View Corrigendum File</a>
+            </div>
+
+        <!-- Step 8: Executive Board Meeting (EBM) -->
+          <div class="form-step sp-step-content">
+           <h2>Executive Board Meeting</h2>
+           <p>Below are the details of the Executive Board Meeting.</p>
+
+           <div id="eb-container">
+              <!-- JS will fill this -->
+          </div>
+        </div>
+
+ 
+          <button type="button" class="continue-btn">Next Step</button>
+        </form>
+      </div>
+    </div>
+
+
+  
+<!-- MR: Monitoring Review Section -->
+<div class="container mr-container" id="mr" style="display: none;">
+  <!-- MR sidebar -->
+  <div class="mr-sidebar">
+    <ul id="mrSidebar" class="steps">
+      <li class="mr-step active" onclick="goToMRStep(0)">KickOff Meeting</li>
+      <li class="mr-step" onclick="goToMRStep(1)">Project Monitoring Review Committee</li>
+    </ul>
+  </div>
+
+  <div class="form-container">
+  <form id="mrForm">
+    <!-- Step 1: KickOff Meeting -->
+    <div class="form-step mr-step-content active">
+      <h2>KickOff Meeting Details</h2>
+      <p>Details of KickOff Meeting.</p>
+
+      <label>Brief</label>
+      <input type="text" id="kickoffBrief" readonly />
+
+      <label>Date</label>
+      <input type="date" id="kickoffDate" readonly />
+
+      <label>Presentation</label>
+      <a href="#" onclick="showFile('kickoffppt')">View Presentation File</a>
+      <label>MOM (Minutes Of Meeting)</label>
+      <a href="#" onclick="showFile('kickoffmom')">View Minutes of Meeting File</a>
+
+    </div>
+
+    <!-- Step 2: PMRC -->
+    <div class="form-step mr-step-content">
+      <h2>PMRC Details</h2>
+      <p>Details of PMRC.</p>
+
+      <div id="pmrc-container">
+        <!-- JS will insert PMRC meeting blocks here -->
+      </div>
+    </div>
+  </form>
+  <div id="fileViewer" style="margin: 20px 0; border: 1px solid #ccc; padding: 10px;"></div>
+<!-- File Preview Box -->
+<div id="fileViewer" style="margin: 20px 0; padding: 10px; border: 1px solid #ccc;"></div>
+
+ </div>
+</div>
+
+
+<!-- CP: Closure Project wizard -->
+<div class="container cp-container" id="cp">
+  <!-- CP sidebar -->
+  <div class="cp-sidebar">
+    <ul id="cpSidebar" class="steps">
+      <li class="cp-step active">Independent DRDO Committee Meeting</li>
+      <li class="cp-step">Technical Closure Report</li>
+      <li class="cp-step">Administrative Closure</li>
+      <li class="cp-step">Closure Letter</li>
+    </ul>
+  </div>
+
+
+  <!-- CP form -->
+  <div class="form-container">
+    <form id="cpForm">
+      <!-- Step 1 -->
+         <div class="form-step cp-step-content active">
+      <h2>Independent DRDO Committee Meeting</h2>
+      <p>Meeting details of the project.</p>
+      <label>Approval</label>
+      <input type="text" id="idcmApproval" readonly class="view-only-input" />
+      <label>Date</label>
+      <input type="text" id="idcmDate" readonly class="view-only-input" />
+      <label>IDCM Attached File</label>
+      <a id="IDCMFileLink" href="#" target="_blank" class="file-link">View IDCM File</a>
+      <label>Minutes Of Meeting Attached File</label>
+      <a id="MOMFileLink" href="#" target="_blank" class="file-link">View Minutes Of Meeting File</a>
+      <label>Recommendation</label>
+      <input type="text" id="idcmRecommendation" readonly />
+    </div>
+
+    <!-- Step 2 -->
+    <div class="form-step cp-step-content">
+      <h2>Technical Closure Report</h2>
+      <label>Approval</label>
+      <input type="text" id="tcrApproval" readonly />
+      <label>Report</label>
+      <input type="text" id="tcrReport" readonly />
+      <label>Attached File</label>
+      <a id="tcrFileName" href="#" target="_blank" class="file-link">View Technical Closure Report File</a>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="form-step cp-step-content">
+      <h2>Administrative Closure</h2>
+      <label>Attached File</label>
+      <a id="acFileName" href="#" target="_blank" class="file-link">View Administrative Closure File</a>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="form-step cp-step-content">
+      <h2>Closure Letter</h2>
+      <label>Attached File</label>
+      <a id="clFileName" href="#" target="_blank" class="file-link">View Closure Letter File</a>
+      <label>Date</label>
+      <input type="text" id="clDate" readonly />
+    </div>
+
+      <button type="button" class="continue-btn">Next Step</button>
+    </form>
+  </div>
+</div>
+  </div>
+  <footer class="footer">
+    © 2025 DRDO SSPL. All rights reserved.
+  </footer>
+  <script src="ViewProjectForm.js"></script>
+  <script src="ViewProjectFormApi.js"></script>
+
+</body>
+</html>

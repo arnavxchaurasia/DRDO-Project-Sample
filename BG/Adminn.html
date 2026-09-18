@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard - DRDO SSPL</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-color: #f4f7fc;
+      color: #333;
+    }
+
+    .header {
+      background-color: #040855;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 16px 32px;
+      justify-content: space-between;
+    }
+
+    .header img {
+      height: 50px;
+      margin-right: 16px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .dashboard {
+      display: flex;
+      flex: 1;
+      gap: 0px;
+      padding: 16px;
+      align-items: stretch;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #f4f7fc;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    .sidebar .container {
+      background-color: #040855;
+      color: white;
+      padding: 24px 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      margin-bottom: 0;
+    }
+
+    .sidebar h2 {
+      font-size: 20px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .nav a {
+      display: flex;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+      padding: 11px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background-color: #0c1174;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .main .container {
+      width: 100%;
+      max-width: 900px;
+      background-color: #ffffff;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 0;
+    }
+
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section h3 {
+      font-size: 22px;
+      border-left: 5px solid #05b016;
+      padding-left: 11px;
+      margin-bottom: 24px;
+      color: #001f4d;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      background-color: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      padding: 13px 24px;
+      background-color: #05b016;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0a8d1e;
+    }
+
+    .project-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+
+    .edit-options button {
+      margin: 5px 5px 0 0;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      background-color: #f0f0f0;
+      color: #040855;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .edit-options button:hover {
+      background-color: #040855;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .project-card h4 {
+      margin-bottom: 6px;
+      color: #040855;
+    }
+
+    .project-card .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      background: #e0e0e0;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .project-card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .footer {
+      background-color: #040855;
+      color: white;
+      text-align: center;
+      padding: 16px;
+      font-size: 14px;
+    }
+
+    .view-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background-color: #0c17ee;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  .edit-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background-color: #2ca538;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s, transform 0.2s;
+  }
+
+  input[type="date"] {
+  padding: 10px 12px;
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* make it responsive */
+  box-sizing: border-box;
+}
+
+input[type="date"]:hover {
+  border-color: #888;
+}
+
+input[type="date"]:focus {
+  border-color: #0057d9;
+  box-shadow: 0 0 5px rgba(0, 87, 217, 0.3);
+}
+
+  .view-btn:hover {
+    background-color: #2024b1;
+    transform: translateY(-2px);
+  }
+  .edit-btn:hover {
+    background-color: #12ec19;
+    transform: translateY(-2px);
+  }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .main {
+        padding: 16px;
+      }
+
+      .main .container,
+      .sidebar .container {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div style="display: flex; align-items: center;">
+      <img src="/logo/drdo_logo.png" alt="DRDO Logo" />
+      <h1>SSPL DRDO - Admin Dashboard</h1>
+    </div>
+  </div>
+
+  <div class="dashboard">
+    <div class="sidebar">
+      <div class="container">
+        <div class="nav">
+          <a class="active" onclick="showSection('create')">Create Project</a>
+          <a onclick="showSection('edit')">Edit Project</a>
+          <a onclick="showSection('view')">View Projects</a>
+          <a onclick="alert('Settings coming soon!')">Settings</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="container">
+        <div class="section" id="create-section">
+          <h3>Create New Project</h3>
+          <form id="createForm">
+            <div class="form-group">
+              <label for="projectName">Project Name</label>
+              <input type="text" id="projectName" required />
+            </div>
+            <div class="form-group">
+              <label for="category">CFA Power</label>
+              <select id="category" required>
+                <option value="">-- Select Category --</option>
+                <option>Under 10Cr Cost</option>
+                <option>Above 10Cr Cost</option>
+                <option>TASK</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="description">Project Description</label>
+              <textarea id="description" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="date">Start Date</label>
+              <input type="date" id="date" required />
+            </div>
+            <button type="submit">Create Project</button>
+          </form>
+        </div>
+
+        <div class="section" id="edit-section" style="display: none;">
+          <h3>Edit Projects</h3>
+          <div class="project-list" id="edit-project-list"></div>
+        </div>
+
+        <div class="section" id="view-section" style="display: none;">
+          <h3>Previous Projects</h3>
+          <div class="project-list" id="view-project-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2025 DRDO SSPL | Admin Dashboard. All rights reserved.
+  </div>
+
+<script src="CreateProject.js"></script>
+<script>
+  function showSection(section) {
+  const create = document.getElementById('create-section');
+  const edit = document.getElementById('edit-section');
+  const view = document.getElementById('view-section');
+
+  // Show only the selected section
+  create.style.display = section === 'create' ? 'block' : 'none';
+  edit.style.display = section === 'edit' ? 'block' : 'none';
+  view.style.display = section === 'view' ? 'block' : 'none';
+
+  // Update active tab
+  const links = document.querySelectorAll('.nav a');
+  links.forEach(link => link.classList.remove('active'));
+
+  if (section === 'create') links[0].classList.add('active');
+  if (section === 'edit') {
+    links[1].classList.add('active');
+    fetchProjectsForEdit(); // ✅ Only call when "Edit" tab is clicked
+  }
+  if (section === 'view') {
+    links[2].classList.add('active');
+    fetchProjects(); // ✅ Only call when "View" tab is clicked
+  }
+}
+
+  // ✅ Wait until the DOM is ready
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('createForm');
+    if (form) {
+      form.addEventListener('submit', createProject); // createProject must be globally accessible
+    }
+  });
+</script>
+<script src="EditProject.js"></script>
+<script src="ViewProject.js"></script>
+
+</body>
+</html>

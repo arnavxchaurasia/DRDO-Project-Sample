@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: #d9e2ec;
+      background-image: url(sambg.png);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #040855;
+    }
+
+    header {
+      background-color: #040855;
+      color: #fff;
+      padding: 19px;
+      font-size: 24px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+
+    header img {
+      width: 250px;
+      height: 50px;
+      margin-right: 15px;
+    }
+
+    footer {
+      background-color: #040855;
+      color: #fff;
+      text-align: center;
+      padding: 19px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .login-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px;
+    }
+
+    .login-container {
+      background-color: #ffffff;
+      padding: 40px 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      transition: all 0.3s ease;
+    }
+
+    .login-container:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+    }
+
+    .login-container h2 {
+      text-align: center;
+      color: #001d3d;
+      margin-bottom: 32px;
+      font-size: 29px;
+      letter-spacing: 0.5px;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #002855;
+      font-size: 15px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background-color: #f8fafc;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: #040855;
+      outline: none;
+      background-color: #ffffff;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 13px;
+      background-color: #05b016;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #0b881d;
+      transform: translateY(-2px);
+    }
+
+    .login-footer {
+      margin-top: 19px;
+      text-align: center;
+      font-size: 14px;
+      color: white;
+    }
+
+    footer {
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 32px 24px;
+      }
+
+      header, footer {
+        font-size: 19px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="/logo/drdo_logo.png" alt="DRDO Logo" />
+    Admin Login
+  </header>
+
+  <div class="login-wrapper">
+    <div class="login-container">
+      <h2>LOGIN</h2>
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter your username" required />
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required />
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+      <div class="login-footer">
+        Forgot credentials? Contact your administrator.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 DRDO SSPL | All rights reserved
+  </footer>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // prevent form from submitting normally
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      // Replace these with actual validation or API call
+      const validUsername = 'admin';
+      const validPassword = '12345';
+
+      if (username === validUsername && password === validPassword) {
+        alert('Login successful!');
+        // Redirect or open dashboard
+        window.location.href = 'Adminn.html'; // change as needed
+      } else {
+        alert('Invalid username or password.');
+      }
+    });
+  </script>
+
+</body>
+</html>

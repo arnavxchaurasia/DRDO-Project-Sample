@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>DRDO SSPL Project Portal</title>
+  <link rel="stylesheet" href="ProjectForm.css">
+</head>
+<body>
+  <div class="page-wrapper">
+  <header class="header">
+    <img src="/logo/drdo_logo.png" alt="DRDO Logo"/>
+    <h1>SSPL Research Project Dashboard</h1>
+  </header>
+
+  <div class="main-content">
+    <!-- PP / SP / CP toggle -->
+    <div class="new-sidebar">
+      <button class="active" data-pane="pp">Preliminary Information</button>
+      <button data-pane="sp">Project Sanction</button>
+      <button data-pane="mr">Monitoring Review</button>
+      <button data-pane="cp">Project Closure</button>
+    </div>
+
+    <!-- PP: Pre-Project wizard -->
+    <div class="container pp-container active" id="pp">
+      <div class="pp-sidebar">
+        <ul id="sidebarList" class="steps">
+          <li class="step active">Title</li>
+          <li class="step">Draft Project Proposal</li>
+          <li class="step">Executive Summary</li>
+          <li class="step">Objective</li>
+          <li class="step">Scope</li>
+          <li class="step">Participating Labs</li>
+          <li class="step">Users</li>
+          <li class="step">Cost Estimation</li>
+          <li class="step">Duration Estimation</li>
+          <li class="step">Management Council</li>
+          <li class="step">Cluster Council Meeting</li>
+          <li class="step">Project Review Committee</li>
+          <li class="step">Preliminary Design Review</li>
+          <li class="step">Time Estimation Committee</li>
+          <li class="step">Cost Estimation Committee</li>
+          <li class="step">DRDO Management Council</li>
+          <li class="step">Statement of Case</li>
+        </ul>
+        <div class="add-section">
+          <input id="newSectionName" placeholder="New Section"/>
+          <button id="addSectionBtn">Add</button>
+        </div>
+      </div>
+
+     <!-- Step 1: Title & Description --> 
+      <div class="form-container">
+        <form id="multiStepForm">
+          <div class="form-step active">
+            <h2>Name of the Project</h2>
+            <p>Please provide the name and description of the project.</p>
+            <label>Title</label>
+            <input type="text" id="Title" name="Title" placeholder="Project name" required />
+            <label>Description</label>
+            <input type="text" id="Description" name="Description" placeholder="Project description" required />
+        </div>
+        
+        <!-- Step 2: Draft Project Proposal -->
+        <div class="form-step">
+          <h2>Draft Project Proposal</h2>
+          <p>Please provide the details of Draft Project Proposal.</p>
+          <label>Brief</label><input id="DraftBrief" name="DraftBrief" type="text"/>
+          <label>Minutes Of Meeting</label><input id="DraftMinutesFile" name="DraftMinutesFile" type="file" accept=".pdf,.doc,.docx"/>
+          <label>Date</label><input id="DraftDate" name="DraftDate" type="date"/>
+        </div>
+
+         <!-- Step 3: Executive Summary -->
+        <div class="form-step">
+            <h2>Executive Summary</h2>
+            <p>Please provide the Executive Summary of the project.</p>
+            <label>Brief</label><input id="ExecutiveSummaryBrief" name="ExecutiveSummaryBrief" type="text" required />
+            <label>Attach a file (PDF, Word, etc.)</label><input id="ExecutiveSummaryFile" name="ExecutiveSummaryFile" type="file" accept=".pdf,.doc,.docx"/>
+          </div>
+
+        <!-- Step 4: Objective -->
+        <div class="form-step">
+          <h2>Objective</h2>
+            <p>Please provide the objective of the project.</p>
+            <label>Brief</label><input id="ObjectiveBrief" name="ObjectiveBrief" type="text" required />
+            <label>Attach a file (PDF, Word, etc.)</label><input id="ObjectiveFile" name="ObjectiveFile" type="file" accept=".pdf,.doc,.docx"/>
+          </div>
+
+        <!-- Step 4: Scope -->
+        <div class="form-step">
+          <h2>Scope</h2>
+            <p>Please provide the scope details of the project.</p>
+            <label>Brief</label><input type="text" id="ScopeBrief" name="ScopeBrief" placeholder="Scope of project" required />
+            <label>Attach a file (PDF, Word, etc.)</label><input id="ScopeFile" name="ScopeFile" type="file" accept=".pdf,.doc,.docx"/>
+        </div>
+
+        <!-- Step 5: Participating Labs -->
+        <div class="form-step">
+          <h2>Participating Labs</h2>
+            <p>Please provide the Labs details of the project.</p>
+            <label for="labs">Participating Labs</label>
+            <select id="ParticipatingLabs" name="ParticipatingLabs" required>
+            <option value="">Select</option>
+            <option value="ACEM">Advanced Centre for Energetic Materials (ACEM)</option>
+            <option value="ANURAG">Advanced Numerical Research & Analysis Group (ANURAG)</option>
+            <option value="ASL">Advanced Systems Laboratory (ASL)</option>
+            <option value="ADRDE">Aerial Delivery Research & Development Establishment (ADRDE)</option>
+            <option value="ADE">Aeronautical Development Establishment (ADE)</option>
+            <option value="ARDE">Armament Research & Development Establishment (ARDE)</option>
+            <option value="CABS">Centre for Air Borne System (CABS)</option>
+            <option value="CAIR">Centre for Artificial Intelligence & Robotics (CAIR)</option>
+            <option value="CAS">Centre for Advanced Systems (CAS)</option>
+            <option value="CEMILAC">Centre for Military Airworthiness & Certification (CEMILAC)</option>
+            <option value="CEPTAM">Centre for Personnel Talent Management (CEPTAM)</option>
+            <option value="CFEES">Centre for Fire, Explosive & Environment Safety (CFEES)</option>
+            <option value="CHESS">Centre for High Energy Systems and Sciences (CHESS)</option>
+            <option value="CMSDS">Centre for Millimeter Wave Semiconductor Devices & Systems (CMSDS)</option>
+            <option value="CVRDE">Combat Vehicles Research & Development Establishment (CVRDE)</option>
+            <option value="DARE">Defence Avionics Research Establishment (DARE)</option>
+            <option value="DEBEL">Defence Bio-engineering & Electromedical Laboratory (DEBEL)</option>
+            <option value="DEAL">Defence Electronics Applications Laboratory (DEAL)</option>
+            <option value="DESIDOC">Defence Scientific Information & Documentation Centre (DESIDOC)</option>
+            <option value="DFRL">Defence Food Research Laboratory (DFRL)</option>
+            <option value="DIBER">Defence Institute of Bio-Energy Research (DIBER)</option>
+            <option value="DIC">DRDO Integration Centre (DIC)</option>
+            <option value="DIHAR">Defence Institute of High Altitude Research (DIHAR)</option>
+            <option value="DIPAS">Defence Institute of Physiology & Allied Science (DIPAS)</option>
+            <option value="DIPR">Defence Institute of Psychological Research (DIPR)</option>
+            <option value="DL">Defence Laboratory (DL)</option>
+            <option value="DLRL">Defence Electronics Research Laboratory (DLRL)</option>
+            <option value="DMSRDE">Defence Materials & Stores R&D  Establishment (DMSRDE)</option>
+            <option value="DMRL">Defence Metallurgical Research Laboratory (DMRL)</option>
+            <option value="DRDE">Defence Research & Development Establishment (DRDE)</option>
+            <option value="DRDL">Defence Research & Development Laboratory (DRDL)</option>
+            <option value="DRL">Defence Research Laboratory (DRL)</option>
+            <option value="DTRL">Defence Terrain Research Laboratory (DTRL)</option>
+            <option value="GTRE">Gas Turbine Research Establishment (GTRE)</option>
+            <option value="HEMRL">High Energy Materials Research Laboratory (HEMRL)</option>
+            <option value="INMAS">Institute of Nuclear Medicine & Allied Sciences (INMAS)</option>
+            <option value="ISSA">Institute of Systems Studies & Analyses (ISSA)</option>
+            <option value="ITM">Institute of Technology Management (ITM)</option>
+            <option value="IRDE">Instruments Research & Development Establishment (IRDE)</option>
+            <option value="ITR">Integrated Test Range (ITR)</option>
+            <option value="JCB">Joint Cypher Bureau (JCB)</option>
+            <option value="LASTEC">Laser Science & Technology Centre (LASTEC)</option>
+            <option value="LRDE">Electronics & Radar Development Establishment (LRDE)</option>
+            <option value="MILIT">Military Institute of Training (MILIT)</option>
+            <option value="MSC">Mobile Systems Complex (MSC)</option>
+            <option value="MTRDC">Microwave Tube Research & Development Centre (MTRDC)</option>
+            <option value="NMRL">Naval Materials Research Laboratory (NMRL)</option>
+            <option value="NPOL">Naval Physical & Oceanographic Laboratory (NPOL)</option>
+            <option value="NSTL">Naval Science & Technological Laboratory (NSTL)</option>
+            <option value="PXE">Proof and Experimental Establishment (PXE)</option>
+            <option value="RAC">Recruitment and Assessment Center (RAC)</option>
+            <option value="RCI">Research Centre Imarat (RCI)</option>
+            <option value="RD">Research & Development Establishment (Engrs) [R&D (Engrs)]</option>
+            <option value="RIC">DRDO Research & Innovation Centre (RIC)</option>
+            <option value="SAG">Scientific Analysis Group (SAG)</option>
+            <option value="SASE">Snow and Avalanche Study Establishment (SASE)</option>
+            <option value="SFC">SF Complex (SFC)</option>
+            <option value="SSPL">Solid State Physics Laboratory (SSPL)</option>
+            <option value="TBRL">Terminal Ballistics Research Laboratory (TBRL)</option>
+            <option value="VRDE">Vehicle Research & Development Establishment (VRDE)</option>
+            </select>
+        </div>
+
+        <!-- Step 6: Users -->
+         <div class="form-step">
+          <h2>Users</h2>
+            <p>Please provide the user details of the project.</p>
+            <label></label><input id="UsersBrief" name="UsersBrief" type="text" required />
+            <label>Attach a file (PDF, Word, etc.)</label><input id="UsersFile" name="UsersFile" type="file" accept=".pdf,.doc,.docx"/>
+        </div>
+
+        <!-- Step 7: Cost Estimation -->
+         <div class="form-step">
+          <h2>Cost Estimation</h2>
+            <p>Please provide the Cost Estimation details of the project.</p>
+             <p>Provide the cost details.</p>
+              <label>Brief</label><input type="text" id="CostBrief" name="CostBrief" required />
+              <label>Attach a file (PDF, Word, etc.)</label><input  type="file" id="CostFile" name="CostFile" type="file" accept=".pdf,.doc,.docx"/>
+              <label>Revenue</label>
+              <input type="text" id="Revenue" name="Revenue" placeholder="Revenue Details" required />
+              <label>Capital</label>
+              <input id="Capital" name="Capital" type="text" placeholder="Capital Details" required />
+              <label>FE</label>
+              <input type="text" id="FE" name="FE" placeholder="FE Details" required />
+              <label>IC</label>
+              <input type="text" id="IC" name="IC" placeholder="IC Details" required />
+              <label>RE</label>
+              <input type="text" id="RE" name="RE" placeholder="RE Details" required />    
+        </div>
+
+        <!-- Step 8: Duration Estimation -->
+        <div class="form-step">
+          <h2>Duration Estimation</h2>
+            <p>Please provide the Duration Estimation details of the project.</p>
+            <label>Brief</label><input id="DurationBrief" name="DurationBrief" type="text" required />
+            <label>Attach a file (PDF, Word, etc.)</label><input id="DurationFile" name="DurationFile" type="file" accept=".pdf,.doc,.docx"/>
+        </div>
+        
+        <!-- Step 9: Management Council -->
+        <div class="form-step">
+          <h2>Management Council</h2>
+            <p>Please provide the Management Council details of the project.</p>
+            <label>Brief</label><input id="ManagementCouncilBrief" name="ManagementCouncilBrief" type="text" required />
+            <label>Approval</label><input id="ManagementCouncilApproval" name="ManagementCouncilApproval" type="text"/>
+            <label>Minutes Of Meeting</label><input type="file" id="ManagementCouncilMomFile" name="ManagementCouncilMomFile" accept=".pdf,.doc,.docx"/>
+            <label>Attach a file (PDF, Word, etc.)</label><input type="file" id="ManagementCouncilFile" name="ManagementCouncilFile" accept=".pdf,.doc,.docx"/>
+        </div>
+
+        <!-- Step 10: Cluster Council Meeting -->
+        <div class="form-step">
+          <h2>Cluster Council Meeting</h2>
+          <p>Please provide the details of CCM.</p>
+          <label>Approval</label><input id="ClusterCouncilApproval" name="ClusterCouncilApproval" type="text"/>
+          <label>Minutes Of Meeting</label><input type="file" id="ClusterCouncilMomFile" name="ClusterCouncilMomFile" accept=".pdf,.doc,.docx"/>
+          <label>Date</label><input id="ClusterCouncilDate" name="ClusterCouncilDate" type="date"/>
+        </div>
+
+        <!-- Step 11: Project Review Committee -->
+        <div class="form-step">
+          <h2>Project Review Committee</h2>
+          <p>Please provide the details of PRC.</p>
+          <label>Approval</label><input id="ProjectReviewApproval" name="ProjectReviewApproval" type="text"/>
+          <label>Minutes Of Meeting</label><input type="file" id="ProjectReviewMomFile" name="ProjectReviewMomFile" accept=".pdf,.doc,.docx"/>
+          <label>Date</label><input id="ProjectReviewDate" name="ProjectReviewDate" type="date"/>
+        </div>
+
+        <!-- Step 12: PDR -->
+        <div class="form-step">
+          <h2>Preliminary Design Review</h2>
+            <p>Please provide the PDR details of the project.</p>
+            <label>Brief</label><input id="PdrBrief" name="PdrBrief" type="text" required />
+            <label>Minutes Of Meeting</label><input id="PdrMomFile" name="PdrMomFile" type="file" accept=".pdf,.doc,.docx"/>
+            <label>Attach a file (PDF, Word, etc.)</label><input type="file" id="PdrFile" name="PdrFile" type="file" accept=".pdf,.doc,.docx"/>
+            <label>Date</label><input id="PdrDate" name="PdrDate" type="date"/>
+        </div>
+        
+        <!-- Step 13: Time Estimation Committee -->
+        <div class="form-step">
+          <h2>Time Estimation Committee</h2>
+          <p>Please provide the details of TiEC.</p>
+          <label>Minutes Of Meeting</label><input id="TiecMomFile" name="TiecMomFile" type="file" accept=".pdf,.doc,.docx"/>
+          <label>Date</label><input id="TiecDate" name="TiecDate" type="date"/>
+          <label>Brief</label><textarea id="TiecBrief" name="TiecBrief"></textarea>
+        </div>
+
+        <!-- Step 14: Cost Estimation Committee -->
+        <div class="form-step">
+          <h2>Cost Estimation Committee</h2>
+          <p>Please provide the details of CEC.</p>
+          <label>Minutes Of Meeting</label><input type="file" id="CecMomFile" name="CecMomFile" accept=".pdf,.doc,.docx"/>
+          <label>Date</label><input id="CecDate" name="CecDate" type="date"/>
+          <label>Brief</label><textarea id="CecBrief" name="CecBrief"></textarea>
+        </div>
+
+        <!-- Step 15: DRDO Management Committee-->
+        <div class="form-step">
+          <h2>DRDO Management Committee</h2>
+          <p>Please provide the details of DMC.</p>
+          <label>Minutes Of Meeting</label><input id="DmcMomFile" name="DmcMomFile" type="file" accept=".pdf,.doc,.docx"/>
+          <label>Date</label><input id="DmcDate" name="DmcDate" type="date"/>
+          <label>Brief</label><textarea id="DmcBrief" name="DmcBrief"></textarea>
+        </div>
+
+        <!-- Step 16: SOC -->
+        <div class="form-step">
+          <h2>Statement of Case</h2>
+          <p>Please provide the details of SOC.</p>
+          <label>Minutes Of Meeting</label><input id="SocMomFile" name="SocMomFile" type="file" accept=".pdf,.doc,.docx"/>
+          <label>Date</label><input id="SocDate" name="SocDate" type="date"/>
+          <label>Brief</label><textarea id="SocBrief" name="SocBrief"></textarea>
+        </div> 
+
+          <button type="button" class="continue-btn">Next Step</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- SP: Sanction Project wizard -->
+    <div class="container sp-container" id="sp">
+      <!-- SP sidebar -->
+      <div class="sp-sidebar">
+        <!-- Removed KickOff and PMRC Steps from this part -->
+        <ul id="spSidebar" class="steps">
+         <li class="sp-step active">Category</li>
+         <li class="sp-step">Deliverable</li>
+         <li class="sp-step">Participating Labs</li>
+         <li class="sp-step">Sanction Date</li>
+         <li class="sp-step">Probable Date of Completion</li>
+         <li class="sp-step">Sanction Letter</li>
+         <li class="sp-step">Corrigendum</li>
+         <li class="sp-step">Executive Board Meeting</li>
+        </ul>
+
+      </div>
+      <!-- SP form -->
+      <div class="form-container">
+        <form id="spForm">
+
+        <!-- Step 1: Category -->
+          <div class="form-step sp-step-content active">
+          <h2>Project Category</h2>
+          <p>Select the category of the project and specify its details.</p>
+          <label for="category">Category</label>
+          <select id="category" required>
+            <option value="">Select</option>
+            <option value="ST">Scientific &amp; Technological (ST-A)</option>
+            <option value="ST">Scientific &amp; Technological (ST-B)</option>
+            <option value="TD">Technology Development (TD-A)</option>
+            <option value="TD">Technology Development (TD-B)</option>
+            <option value="MM">Mission Mode (MM)</option>
+          </select>
+
+          <!-- ST Details Dropdown (Initially Hidden)
+          <div id="stDetailsContainer" style="display: none; margin-top: 10px;">
+            <label for="stDetails">ST Details</label>
+            <select id="stDetails">
+              <option value="">Select</option>
+              <option value="basic">Basic Research</option>
+              <option value="advanced">Advanced Research</option>
+            </select>
+          </div>
+
+          TD Details Dropdown (Initially Hidden) -->
+          <div id="tdDetailsContainer" style="display: none; margin-top: 10px;">
+            <label for="tdDetails">TD Details</label>
+            <select id="tdDetails">
+              <option value="">Select</option>
+              <option value="prototype">Prototype Development</option>
+              <option value="deployment">Technology Deployment</option>
+            </select>
+          </div>
+          </div>
+
+            <!-- Step 2: Deliverable -->
+            <div class="form-step sp-step-content">
+              <h2>Deliverable</h2>
+              <p>Please provide the deliverable details of the project.</p>
+              <input type="text" id="deliverableDetails" placeholder="Deliverable details" required />
+              <label>Attach a file (PDF, Word, etc.)</label>
+              <input type="file" id="deliverableFile" accept=".pdf, .doc, .docx" />
+            </div>
+
+             <!-- Step 3: Participating Lab -->
+             <div class="form-step sp-step-content">
+                <h2>Participating Lab</h2>
+                <p>Please mention the name of the participating lab.</p>
+                <label>Lab</label>
+                <input type="text" id="spparticipatingLabName" placeholder="Lab name" required />
+            </div>
+
+             <!-- Step 4: Sanction Date -->
+             <div class="form-step sp-step-content">
+              <h2>Sanction Date</h2>
+              <p>Provide the details of the sanction date.</p>
+              <label>Description</label>
+              <input type="text" id="sanctionDescription" placeholder="Additional comments" required />
+              <label>Date</label>
+              <input type="date" id="sanctionDate" required />
+             </div>
+
+             <!-- Step 5: PDC -->
+            <div class="form-step sp-step-content">
+              <h2>Probable Date of Completion</h2>
+              <p>Please provide the details of PDC.</p>
+              <label></label><input type="text" id="pdcDetails" placeholder="provide the Original Revised details of PDC." required />
+              <label>Date</label><input type="date" id="pdcDate"/>
+            </div>
+
+            <!-- Step 6: Sanction Letter -->
+            <div class="form-step sp-step-content">
+              <h2>Sanction Letter</h2>
+              <p>Please provide the sanction letter details of the project.</p>
+              <label>Approval</label><input type="text" id="sanctionApproval" placeholder="Scope of project" required />
+              <label>Attach a file (PDF, Word, etc.)</label>
+              <input type="file" id="sanctionFile" accept=".pdf, .doc, .docx" />
+            </div>
+
+             <!-- Step 7: Corrigendum-->
+             <div class="form-step sp-step-content">
+                <h2>Corrigendum</h2>
+                <p>Provide the details of the Corrigendum.</p>
+                <label>Description</label>
+                <input type="text" id="corrigendumDescription" placeholder="Additional comments" required />
+                <label>Attach a file (PDF, Word, etc.)</label>
+                <input type="file" id="corrigendumFile" accept=".pdf, .doc, .docx" />
+            </div>
+
+  <!-- Step 8: EB -->
+  <div class="form-step sp-step-content">
+    <h2>EB Details</h2>
+    <p>Please provide the details of EB.</p>
+
+    <div id="eb-container">
+      <div class="eb-meeting">
+        <hr />
+        <h4>EB Meeting 1</h4>
+        <table>
+          <tr>
+            <td><label>Schedule Date</label></td>
+            <td><input type="date" id="ebmDate" name="ebScheduleDate[]" readonly required /></td>
+          </tr>
+          <tr>
+            <td><label>Brief</label></td>
+            <td><input type="text" id="ebmBrief" name="ebBrief[]" placeholder="Provide a brief summary" required /></td>
+          </tr>
+          <tr>
+            <td><label>Presentation</label></td>
+            <td><input type="file" name="ebPresentation[]" accept=".pdf, .ppt, .pptx" /></td>
+          </tr>
+          <tr>
+            <td><label>MOM</label></td>
+            <td><input type="file" name="ebMOM[]" accept=".pdf, .doc, .docx" /></td>
+          </tr>
+          <tr>
+            <td><label>Members of Committee</label></td>
+            <td><input type="text" name="ebCommitteeMembers[]" placeholder="Enter names separated by commas" /></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <button type="button" onclick="addEBMeeting()">Add Another EB Meeting</button>
+  </div>
+
+ 
+          <button type="button" class="continue-btn">Next Step</button>
+        </form>
+      </div>
+    </div>
+
+
+  
+<!-- MR: Monitoring Review Section -->
+<div class="container mr-container" id="mr" style="display: none;">
+  <!-- MR sidebar -->
+  <div class="mr-sidebar">
+    <ul id="mrSidebar" class="steps">
+      <li class="mr-step active" onclick="goToMRStep(0)">KickOff Meeting</li>
+      <li class="mr-step" onclick="goToMRStep(1)">Project Monitoring Review Committee</li>
+    </ul>
+  </div>
+
+  <!-- MR form -->
+  <div class="form-container">
+    <form id="mrForm" method="post" enctype="multipart/form-data">
+      <!-- Step 1: KickOff Meeting -->
+      <div class="form-step mr-step-content active">
+        <h2>KickOff Meeting Details</h2>
+        <p>Please provide the details of KickOff Meeting.</p>
+        
+        <label>Brief</label>
+        <input type="text" id="kickoffBrief" name="KickoffBrief" placeholder="Provide a brief summary" required />
+        
+        <label>Date</label>
+        <input type="date" id="kickoffDate" name="KickoffDate" required />
+        
+        <label>Presentation</label>
+        <input type="file" name="KickoffPptFileName" accept=".pdf, .ppt, .pptx" />
+        
+        <label>MOM (Minutes Of Meeting)</label>
+        <input type="file" name="KickoffMomFile" accept=".pdf, .doc, .docx" />
+      </div>
+
+      <!-- Step 2: PMRC -->
+      <div class="form-step mr-step-content">
+        <h2>PMRC Details</h2>
+        <p>Please provide the details of PMRC.</p>
+
+        <div id="pmrc-container">
+          <div class="pmrc-meeting">
+            <hr />
+            <h4>PMRC Meeting 1</h4>
+            <table>
+              <tr>
+                <td><label>Schedule Date</label></td>
+                <td><input type="date" name="PmrcScheduleDate" readonly /></td>
+              </tr>
+              <tr>
+                <td><label>Held Date</label></td>
+                <td><input type="date" name="PmrcDate" required /></td>
+              </tr>
+              <tr>
+                <td><label>Brief</label></td>
+                <td><input type="text" name="PmrcBrief" placeholder="Provide a brief summary" required /></td>
+              </tr>
+              <tr>
+                <td><label>Presentation</label></td>
+                <td><input type="file" name="PmrcPptFileName" accept=".pdf, .ppt, .pptx" required /></td>
+              </tr>
+              <tr>
+                <td><label>MOM</label></td>
+                <td><input type="file" name="PmrcMomFile" accept=".pdf, .doc, .docx" /></td>
+              </tr>
+              <tr>
+                <td><label>Members of Committee</label></td>
+                <td><input type="text" name="PmrcCommitteeMembers" placeholder="Enter names separated by commas" /></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <button type="button" onclick="addPMRCMeeting()">Add Another PMRC Meeting</button>
+      </div>
+
+      <button type="button" class="continue-btn">Submit</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- CP: Closure Project wizard -->
+<div class="container cp-container" id="cp">
+  <!-- CP sidebar -->
+  <div class="cp-sidebar">
+    <ul id="cpSidebar" class="steps">
+      <li class="cp-step active">Independent DRDO Committee Meeting</li>
+      <li class="cp-step">Technical Closure Report</li>
+      <li class="cp-step">Administrative Closure</li>
+      <li class="cp-step">Closure Letter</li>
+    </ul>
+  </div>
+
+
+  <!-- CP form -->
+  <div class="form-container">
+    <form id="cpForm">
+      <!-- Step 1 -->
+      <div class="form-step cp-step-content active">
+        <h2>Independent DRDO Committee Meeting</h2>
+        <p>Please provide the meeting details of the project.</p>
+        <label>Approval</label>
+        <input type="text" id="idcmApproval" name="IdcmApproval" placeholder="Approval Details" required />
+        <label>Date</label>
+        <input type="date" id="idcmDate" name="IdcmDate" required />
+        <label>Minutes Of Meeting</label>
+        <input type="file" id="idcmMomFile" name="IdcmMomFile" accept=".pdf, .doc, .docx" required />
+        <label>Attach a file (PDF, Word, etc.)</label>
+        <input type="file" id="idcmFile" name="IdcmFile" accept=".pdf, .doc, .docx" required />
+        <label>Recommendation</label>
+        <input type="text" id="idcmRecommendation" name="IdcmRecommendation" placeholder="Recommendation detail" required />
+      </div>
+
+      <!-- Step 2 -->
+      <div class="form-step cp-step-content">
+        <h2>Technical Closure Report</h2>
+        <p>Please provide the closure report details of the project.</p>
+        <label>Approval</label>
+        <input type="text" id="tcrApproval" name="TcrApproval" placeholder="Approval Details" required />
+        <label>Report</label>
+        <input type="text" id="tcrReport" name="TcrReport" placeholder="Report Details" required />
+        <label>Attach a file (PDF, Word, etc.)</label>
+        <label></label><input id="tcrFile"  name="TcrFile" type="file" accept=".pdf, .doc, .docx" required />
+      </div>
+
+      <!-- Step 3 -->
+      <div class="form-step cp-step-content">
+        <h2>Administrative Closure</h2>
+        <p>Please provide the closure report details of the project.</p>
+        <label>Attach a file (PDF, Word, etc.)</label>
+        <label></label><input id="acFile" name="AcFile" type="file" accept=".pdf, .doc, .docx" required />
+      </div>
+
+       <!-- Step 4 -->
+      <div class="form-step cp-step-content">
+        <h2>Closure Letter</h2>
+        <p>Please provide the closure Letter details of the project.</p>
+        <label>Attach a file (PDF, Word, etc.)</label>
+        <label></label><input type="file" id="clFile" name="ClFile" accept=".pdf, .doc, .docx" required />
+        <label>Date</label><input type="date" name="ClDate" id="clDate"/>
+      </div>
+
+      <button type="button" class="continue-btn">Next Step</button>
+    </form>
+  </div>
+</div>
+  </div>
+  <footer class="footer">
+    © 2025 DRDO SSPL. All rights reserved.
+  </footer>
+  <script src="ProjectForm.js"></script>
+  <script src="ProjectFormApi.js"></script>
+</body>
+</html>
