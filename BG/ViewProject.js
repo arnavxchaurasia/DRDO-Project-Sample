@@ -1,4 +1,4 @@
-const VIEWAPI = "http://localhost:5270/api/Projects";
+const VIEWAPI = `${API_BASE}/api/Projects`;
 
 window.fetchProjects = async function () {
   try {

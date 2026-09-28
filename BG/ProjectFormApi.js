@@ -1,7 +1,7 @@
-const SPAPI = "http://localhost:5270/api/ProjectSanctions";
-const CPAPI = "http://localhost:5270/api/ProjectClosures";
-const MRAPI = "http://localhost:5270/api/MonitoringReviews";
-const PPAPI = "http://localhost:5270/api/PreProjects/upload";
+const SPAPI = `${API_BASE}/api/ProjectSanctions`;
+const CPAPI = `${API_BASE}/api/ProjectClosures`;
+const MRAPI = `${API_BASE}/api/MonitoringReviews`;
+const PPAPI = `${API_BASE}/api/PreProjects/upload`;
 
 const urlParams = new URLSearchParams(window.location.search);
 const projectIdFromURL = urlParams.get("id");

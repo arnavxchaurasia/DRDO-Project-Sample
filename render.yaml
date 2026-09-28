@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: drdo-project-sample
+    runtime: docker
+    dockerfilePath: ./BG/MyBackendAPI/Dockerfile
+    dockerContext: ./BG/MyBackendAPI
+    plan: free
+    envVars:
+      - key: ConnectionStrings__DefaultConnection
+        sync: false

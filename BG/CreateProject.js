@@ -1,6 +1,6 @@
 // CreateProject.js
 
-const APIBASE = "http://localhost:5270/api/Projects";
+const APIBASE = `${API_BASE}/api/Projects`;
 
 async function createProject(e) {
   e.preventDefault();

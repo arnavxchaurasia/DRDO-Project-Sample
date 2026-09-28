@@ -1,4 +1,4 @@
-const EDITAPI = "http://localhost:5270/api/Projects";
+const EDITAPI = `${API_BASE}/api/Projects`;
 
 // ✅ Make it global so `showSection('edit')` can call it
 window.fetchProjectsForEdit = async function () {

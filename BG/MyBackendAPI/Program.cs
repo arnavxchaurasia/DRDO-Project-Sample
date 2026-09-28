@@ -3,6 +3,13 @@ using MyBackendAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ✅ Render (and most free PaaS hosts) inject the port to listen on via $PORT
+var renderPort = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(renderPort))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{renderPort}");
+}
+
 // ✅ MySQL Configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(
@@ -35,6 +42,12 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// ✅ Apply pending EF Core migrations automatically on startup
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+}
+
 // ✅ Swagger only in development
 if (app.Environment.IsDevelopment())
 {
@@ -42,7 +55,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Render terminates TLS at its edge, so redirecting to https inside the
+// container would loop; only force it for local development.
+if (string.IsNullOrEmpty(renderPort))
+{
+    app.UseHttpsRedirection();
+}
 app.UseStaticFiles();
 
 // ✅ Add this before MapControllers()
