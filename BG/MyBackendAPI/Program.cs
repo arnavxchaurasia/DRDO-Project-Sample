@@ -11,9 +11,35 @@ if (!string.IsNullOrEmpty(renderPort))
 }
 
 // ✅ MySQL Configuration
+// Accepts either the ADO.NET format ("server=...;port=...;database=...;user=...;password=...;")
+// or a URI-style connection string ("mysql://user:pass@host:port/db"), which is what
+// Railway (and some other hosts) hand you by default.
+static string NormalizeMySqlConnectionString(string raw)
+{
+    if (string.IsNullOrWhiteSpace(raw))
+    {
+        throw new InvalidOperationException(
+            "ConnectionStrings:DefaultConnection is empty. Set the ConnectionStrings__DefaultConnection " +
+            "environment variable on the host to your MySQL connection details.");
+    }
+
+    if (!raw.StartsWith("mysql://", StringComparison.OrdinalIgnoreCase))
+    {
+        return raw;
+    }
+
+    var uri = new Uri(raw);
+    var userInfo = uri.UserInfo.Split(':', 2);
+    var database = uri.AbsolutePath.TrimStart('/');
+    return $"server={uri.Host};port={uri.Port};database={database};user={userInfo[0]};password={userInfo[1]};";
+}
+
+var connectionString = NormalizeMySqlConnectionString(
+    builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty);
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
+        connectionString,
         new MySqlServerVersion(new Version(8, 0, 34))
     )
 );
