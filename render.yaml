@@ -3,7 +3,7 @@ services:
     name: drdo-project-sample
     runtime: docker
     dockerfilePath: ./BG/MyBackendAPI/Dockerfile
-    dockerContext: ./BG/MyBackendAPI
+    dockerContext: .
     plan: free
     envVars:
       - key: ConnectionStrings__DefaultConnection
