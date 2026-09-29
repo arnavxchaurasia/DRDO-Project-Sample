@@ -6,7 +6,12 @@ window.fetchProjects = async function () {
     if (!res.ok) throw new Error("API returned status " + res.status);
 
     const data = await res.json();
-    const projects = data.$values ?? data;
+    // /api/Projects now returns a paginated { items, page, pageSize, ... }
+    // envelope instead of a bare array, and the API's ReferenceHandler.Preserve
+    // setting wraps any array as { $id, $values } — so the real list could be
+    // at data.items.$values, data.items, data.$values, or data itself
+    // depending on API version. Cover all four rather than guess one.
+    const projects = data.items?.$values ?? data.items ?? data.$values ?? data;
 
     console.log(projects);
 

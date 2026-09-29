@@ -21,6 +21,11 @@ namespace MyBackendAPI.Models
         [Column(TypeName = "date")]
         public DateTime StartDate { get; set; }
 
+        // Set automatically by ApplicationDbContext.SaveChangesAsync — never
+        // assigned directly by callers.
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+
         // ✅ One-to-One navigation to other stages
         public PreProject? PreProject { get; set; }
         public ProjectSanction? ProjectSanction { get; set; }

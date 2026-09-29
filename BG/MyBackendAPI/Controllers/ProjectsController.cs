@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyBackendAPI.Data;
+using MyBackendAPI.DTOs;
 using MyBackendAPI.Models;
+using MyBackendAPI.Services;
 
 namespace MyBackendAPI.Controllers
 {
@@ -9,6 +11,8 @@ namespace MyBackendAPI.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
+        private const int MaxPageSize = 100;
+
         private readonly ApplicationDbContext _context;
 
         public ProjectsController(ApplicationDbContext context)
@@ -16,11 +20,64 @@ namespace MyBackendAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Projects
+        // GET: api/Projects?page=1&pageSize=20&search=radar&status=InProgress
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+        public async Task<ActionResult<PagedResult<ProjectSummaryDto>>> GetProjects(
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 20,
+            [FromQuery] string? search = null,
+            [FromQuery] ProjectLifecycleStatus? status = null)
         {
-            return await _context.Projects.ToListAsync();
+            page = Math.Max(page, 1);
+            pageSize = Math.Clamp(pageSize, 1, MaxPageSize);
+
+            var query = _context.Projects
+                .Include(p => p.PreProject)
+                .Include(p => p.ProjectSanction)
+                .Include(p => p.MonitoringReview)
+                .Include(p => p.ProjectClosure)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                var term = search.Trim();
+                query = query.Where(p =>
+                    (p.Name != null && EF.Functions.Like(p.Name, $"%{term}%")) ||
+                    (p.Category != null && EF.Functions.Like(p.Category, $"%{term}%")));
+            }
+
+            // Status is a computed value (see ProjectLifecycleService), so it
+            // can't be filtered in SQL — pull the (already narrowed) rows
+            // client-side first, then filter/paginate in memory.
+            var candidates = await query.OrderByDescending(p => p.StartDate).ToListAsync();
+
+            var projected = candidates
+                .Select(p => new ProjectSummaryDto
+                {
+                    ProjectId = p.ProjectId,
+                    Name = p.Name,
+                    Category = p.Category,
+                    Description = p.Description,
+                    StartDate = p.StartDate,
+                    Status = ProjectLifecycleService.GetStatus(p),
+                    UpdatedAt = p.UpdatedAt,
+                })
+                .Where(p => status == null || p.Status == status)
+                .ToList();
+
+            var totalCount = projected.Count;
+            var pageItems = projected
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return Ok(new PagedResult<ProjectSummaryDto>
+            {
+                Items = pageItems,
+                Page = page,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+            });
         }
 
         // GET: api/Projects/5

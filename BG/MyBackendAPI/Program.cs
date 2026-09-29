@@ -1,5 +1,10 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MyBackendAPI.Data;
+using MyBackendAPI.Models;
+using MyBackendAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +60,36 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// ✅ Auth: JWT bearer tokens issued by AuthController, verified here
+builder.Services.AddSingleton<JwtTokenService>();
+
+var jwtKey = builder.Configuration["Jwt:Key"];
+if (!string.IsNullOrEmpty(jwtKey) && Encoding.UTF8.GetByteCount(jwtKey) >= 32)
+{
+    var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "DrdoProjectSample";
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = jwtIssuer,
+                ValidateAudience = true,
+                ValidAudience = jwtIssuer,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.FromMinutes(1),
+            };
+        });
+}
+// If Jwt:Key isn't configured (or is too short), AddAuthentication is
+// skipped entirely — [Authorize] endpoints then correctly 500 with a clear
+// "no authentication handler configured" error instead of silently
+// accepting unsigned/unverifiable tokens.
+
+builder.Services.AddAuthorization();
+
 // ✅ ENABLE CORS: Allow any frontend (frontend: localhost:5500, etc.)
 builder.Services.AddCors(options =>
 {
@@ -71,7 +106,27 @@ var app = builder.Build();
 // ✅ Apply pending EF Core migrations automatically on startup
 using (var scope = app.Services.CreateScope())
 {
-    scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+
+    // Optional one-time admin seed — set both SEED_ADMIN_EMAIL and
+    // SEED_ADMIN_PASSWORD as environment variables on the host to create an
+    // initial account (only when the Users table is still empty; never
+    // overwrites or resets an existing user). Deliberately not hardcoded
+    // here — this repo is public, and even a "demo" password shouldn't be
+    // committed to it.
+    var seedEmail = Environment.GetEnvironmentVariable("SEED_ADMIN_EMAIL");
+    var seedPassword = Environment.GetEnvironmentVariable("SEED_ADMIN_PASSWORD");
+    if (!string.IsNullOrWhiteSpace(seedEmail) && !string.IsNullOrWhiteSpace(seedPassword) && !db.Users.Any())
+    {
+        db.Users.Add(new User
+        {
+            Email = seedEmail.Trim().ToLowerInvariant(),
+            PasswordHash = PasswordHasher.Hash(seedPassword),
+            Role = "Admin",
+        });
+        db.SaveChanges();
+    }
 }
 
 // ✅ Swagger only in development
@@ -92,6 +147,7 @@ app.UseStaticFiles();
 // ✅ Add this before MapControllers()
 app.UseCors("AllowAll");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 // ✅ Your controller mapping

@@ -158,14 +158,14 @@
       <h2>LOGIN</h2>
       <form id="loginForm">
         <div class="input-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" placeholder="Enter your username" required />
+          <label for="username">Email</label>
+          <input type="email" id="username" placeholder="Enter your email" required />
         </div>
         <div class="input-group">
           <label for="password">Password</label>
           <input type="password" id="password" placeholder="Enter your password" required />
         </div>
-        <button type="submit" class="login-btn">Login</button>
+        <button type="submit" class="login-btn" id="loginBtn">Login</button>
       </form>
       <div class="login-footer">
         Forgot credentials? Contact your administrator.
@@ -177,23 +177,41 @@
     © 2025 DRDO SSPL | All rights reserved
   </footer>
 
+  <script src="config.js"></script>
   <script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // prevent form from submitting normally
+    document.getElementById('loginForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
 
-      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value;
+      const btn = document.getElementById('loginBtn');
 
-      // Replace these with actual validation or API call
-      const validUsername = 'admin';
-      const validPassword = '12345';
+      btn.disabled = true;
+      btn.textContent = 'Logging in…';
 
-      if (username === validUsername && password === validPassword) {
-        alert('Login successful!');
-        // Redirect or open dashboard
-        window.location.href = 'Adminn.html'; // change as needed
-      } else {
-        alert('Invalid username or password.');
+      try {
+        const res = await fetch(`${API_BASE}/api/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if (!res.ok) {
+          const problem = await res.json().catch(() => null);
+          throw new Error(problem?.message || `Login failed (status ${res.status}).`);
+        }
+
+        const data = await res.json();
+        localStorage.setItem('drdo_token', data.token);
+        localStorage.setItem('drdo_user_email', data.email);
+        localStorage.setItem('drdo_user_role', data.role);
+
+        window.location.href = 'Adminn.html';
+      } catch (err) {
+        alert(err.message || 'Could not reach the login service.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Login';
       }
     });
   </script>
